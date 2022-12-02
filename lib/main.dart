@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
-import 'components/myContainer.dart';
+import 'components/mycontainer.dart';
 import 'calculatorBrain/CalculatorBrain.dart';
 
 void main() {
@@ -14,12 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Calculator Neumorphism',
+      title: 'CalX',
       home: MyCalculatorApp(),
     );
   }
 }
-
 
 class MyCalculatorApp extends StatefulWidget {
   const MyCalculatorApp({super.key});
@@ -29,10 +28,6 @@ class MyCalculatorApp extends StatefulWidget {
 }
 
 class MyCalculatorAppState extends State<MyCalculatorApp> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +48,7 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                         });
                       },
                       child: _switchThemeMode()),
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 70),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
@@ -91,66 +86,71 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buttonRounded(
+                      roundEdgeButton(
                           title: 'C',
                           textColor:
-                          kDarkMode ? Colors.green : Colors.redAccent),
-                      _buttonRounded(title: '('),
-                      _buttonRounded(title: ')'),
-                      _buttonRounded(
+                              kDarkMode ? Colors.green : Colors.redAccent),
+                      roundEdgeButton(title: '('),
+                      roundEdgeButton(title: ')'),
+                      roundEdgeButton(
                           title: '/',
-                          textColor: kDarkMode ? Colors.green : Colors.redAccent)
+                          textColor:
+                              kDarkMode ? Colors.green : Colors.redAccent)
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buttonRounded(title: '7'),
-                      _buttonRounded(title: '8'),
-                      _buttonRounded(title: '9'),
-                      _buttonRounded(
+                      roundEdgeButton(title: '7'),
+                      roundEdgeButton(title: '8'),
+                      roundEdgeButton(title: '9'),
+                      roundEdgeButton(
                           title: '*',
-                          textColor: kDarkMode ? Colors.green : Colors.redAccent)
+                          textColor:
+                              kDarkMode ? Colors.green : Colors.redAccent)
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buttonRounded(title: '4'),
-                      _buttonRounded(title: '5'),
-                      _buttonRounded(title: '6'),
-                      _buttonRounded(
+                      roundEdgeButton(title: '4'),
+                      roundEdgeButton(title: '5'),
+                      roundEdgeButton(title: '6'),
+                      roundEdgeButton(
                           title: '-',
-                          textColor: kDarkMode ? Colors.green : Colors.redAccent)
+                          textColor:
+                              kDarkMode ? Colors.green : Colors.redAccent)
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buttonRounded(title: '1'),
-                      _buttonRounded(title: '2'),
-                      _buttonRounded(title: '3'),
-                      _buttonRounded(
+                      roundEdgeButton(title: '1'),
+                      roundEdgeButton(title: '2'),
+                      roundEdgeButton(title: '3'),
+                      roundEdgeButton(
                           title: '+',
-                          textColor: kDarkMode ? Colors.green : Colors.redAccent)
+                          textColor:
+                              kDarkMode ? Colors.green : Colors.redAccent)
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buttonRounded(title: '0'),
-                      _buttonRounded(title: '.'),
-                      _buttonRounded(
+                      roundEdgeButton(title: '0'),
+                      roundEdgeButton(title: '.'),
+                      roundEdgeButton(
                           icon: Icons.backspace_outlined,
                           iconColor:
-                          kDarkMode ? Colors.green : Colors.redAccent),
+                              kDarkMode ? Colors.green : Colors.redAccent),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           calculate();
                         },
-                        child: _buttonRounded(
+                        child: roundEdgeButton(
                             title: '=',
-                            textColor: kDarkMode ? Colors.green : Colors.redAccent),
+                            textColor:
+                                kDarkMode ? Colors.green : Colors.redAccent),
                       )
                     ],
                   )
@@ -163,33 +163,34 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
     );
   }
 
-  Widget _buttonRounded(
+  Widget roundEdgeButton(
       {String? title,
-        double padding = 17,
-        IconData? icon,
-        Color? iconColor,
-        Color? textColor}) {
+      double padding = 17,
+      IconData? icon,
+      Color? iconColor,
+      Color? textColor}) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: GestureDetector(
-        onTap: (){
-          if(title == 'C'){
+        onTap: () {
+          if (title == 'C') {
             setState(() {
               kUserQuestion = '';
               kUserAnswer = '';
             });
-          }else if(icon == Icons.backspace_outlined) {
+          } else if (icon == Icons.backspace_outlined) {
             setState(() {
-              kUserQuestion = kUserQuestion.substring(0, kUserQuestion.length - 1);
+              kUserQuestion =
+                  kUserQuestion.substring(0, kUserQuestion.length - 1);
             });
-          }else if(title == '='){
+          } else if (title == '=') {
             setState(() {
               calculate();
             });
-          }else{
-          setState(() {
-            kUserQuestion += title!;
-          });
+          } else {
+            setState(() {
+              kUserQuestion += title!;
+            });
           }
         },
         child: MyContainer(
@@ -202,27 +203,22 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
             child: Center(
                 child: title != null
                     ? Text(
-                  title,
-                  style: TextStyle(
-                      color: textColor != null
-                          ? textColor
-                          : kDarkMode
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: 30),
-                )
+                        title,
+                        style: TextStyle(
+                            color: textColor ??
+                                (kDarkMode ? Colors.white : Colors.black),
+                            fontSize: 30),
+                      )
                     : Icon(
-                  icon,
-                  color: iconColor,
-                  size: 30,
-                )),
+                        icon,
+                        color: iconColor,
+                        size: 30,
+                      )),
           ),
         ),
       ),
     );
   }
-
-
 
   Widget _switchThemeMode() {
     return MyContainer(
@@ -232,7 +228,7 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
       child: SizedBox(
         width: 70,
         child:
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Icon(
             Icons.wb_sunny,
             color: kDarkMode ? Colors.grey : Colors.redAccent,
@@ -245,7 +241,4 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
       ),
     );
   }
-
-
 }
-
