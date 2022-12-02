@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'components/myContainer.dart';
-import 'package:math_expressions/math_expressions.dart';
+import 'calculatorBrain/CalculatorBrain.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,15 +29,14 @@ class MyCalculatorApp extends StatefulWidget {
 }
 
 class MyCalculatorAppState extends State<MyCalculatorApp> {
-  bool darkMode = false;
 
-  var userQuestion = '';
-  var userAnswer = '';
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkMode ? colorDark : colorLight,
+      backgroundColor: kDarkMode ? kDarkThemeColor : kLightThemeColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(18),
@@ -50,19 +49,19 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                   GestureDetector(
                       onTap: () {
                         setState(() {
-                          darkMode ? darkMode = false : darkMode = true;
+                          kDarkMode ? kDarkMode = false : kDarkMode = true;
                         });
                       },
-                      child: _switchMode()),
+                      child: _switchThemeMode()),
                   const SizedBox(height: 80),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      userAnswer,
+                      kUserAnswer,
                       style: TextStyle(
                           fontSize: 55,
                           fontWeight: FontWeight.bold,
-                          color: darkMode ? Colors.white : Colors.red),
+                          color: kDarkMode ? Colors.white : Colors.red),
                     ),
                   ),
                   Row(
@@ -72,13 +71,13 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                         '=',
                         style: TextStyle(
                             fontSize: 35,
-                            color: darkMode ? Colors.green : Colors.grey),
+                            color: kDarkMode ? Colors.green : Colors.grey),
                       ),
                       Text(
-                        userQuestion,
+                        kUserQuestion,
                         style: TextStyle(
                             fontSize: 20,
-                            color: darkMode ? Colors.green : Colors.grey),
+                            color: kDarkMode ? Colors.green : Colors.grey),
                       )
                     ],
                   ),
@@ -95,12 +94,12 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                       _buttonRounded(
                           title: 'C',
                           textColor:
-                          darkMode ? Colors.green : Colors.redAccent),
+                          kDarkMode ? Colors.green : Colors.redAccent),
                       _buttonRounded(title: '('),
                       _buttonRounded(title: ')'),
                       _buttonRounded(
                           title: '/',
-                          textColor: darkMode ? Colors.green : Colors.redAccent)
+                          textColor: kDarkMode ? Colors.green : Colors.redAccent)
                     ],
                   ),
                   Row(
@@ -111,7 +110,7 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                       _buttonRounded(title: '9'),
                       _buttonRounded(
                           title: '*',
-                          textColor: darkMode ? Colors.green : Colors.redAccent)
+                          textColor: kDarkMode ? Colors.green : Colors.redAccent)
                     ],
                   ),
                   Row(
@@ -122,7 +121,7 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                       _buttonRounded(title: '6'),
                       _buttonRounded(
                           title: '-',
-                          textColor: darkMode ? Colors.green : Colors.redAccent)
+                          textColor: kDarkMode ? Colors.green : Colors.redAccent)
                     ],
                   ),
                   Row(
@@ -133,7 +132,7 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                       _buttonRounded(title: '3'),
                       _buttonRounded(
                           title: '+',
-                          textColor: darkMode ? Colors.green : Colors.redAccent)
+                          textColor: kDarkMode ? Colors.green : Colors.redAccent)
                     ],
                   ),
                   Row(
@@ -144,14 +143,14 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                       _buttonRounded(
                           icon: Icons.backspace_outlined,
                           iconColor:
-                          darkMode ? Colors.green : Colors.redAccent),
+                          kDarkMode ? Colors.green : Colors.redAccent),
                       GestureDetector(
                         onTap: (){
                           calculate();
                         },
                         child: _buttonRounded(
                             title: '=',
-                            textColor: darkMode ? Colors.green : Colors.redAccent),
+                            textColor: kDarkMode ? Colors.green : Colors.redAccent),
                       )
                     ],
                   )
@@ -176,12 +175,12 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
         onTap: (){
           if(title == 'C'){
             setState(() {
-              userQuestion = '';
-              userAnswer = '';
+              kUserQuestion = '';
+              kUserAnswer = '';
             });
           }else if(icon == Icons.backspace_outlined) {
             setState(() {
-              userQuestion = userQuestion.substring(0, userQuestion.length - 1);
+              kUserQuestion = kUserQuestion.substring(0, kUserQuestion.length - 1);
             });
           }else if(title == '='){
             setState(() {
@@ -189,12 +188,12 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
             });
           }else{
           setState(() {
-            userQuestion += title!;
+            kUserQuestion += title!;
           });
           }
         },
         child: MyContainer(
-          darkMode: darkMode,
+          darkMode: kDarkMode,
           borderRadius: BorderRadius.circular(25),
           padding: EdgeInsets.all(padding),
           child: SizedBox(
@@ -207,7 +206,7 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                   style: TextStyle(
                       color: textColor != null
                           ? textColor
-                          : darkMode
+                          : kDarkMode
                           ? Colors.white
                           : Colors.black,
                       fontSize: 30),
@@ -223,33 +222,11 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
     );
   }
 
-  Widget _buttonOval({required String title, double padding = 17}) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: MyContainer(
-        darkMode: darkMode,
-        borderRadius: BorderRadius.circular(50),
-        padding:
-        EdgeInsets.symmetric(horizontal: padding, vertical: padding / 2),
-        child: SizedBox(
-          width: padding * 2,
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(
-                  color: darkMode ? Colors.white : Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget _switchMode() {
+
+  Widget _switchThemeMode() {
     return MyContainer(
-      darkMode: darkMode,
+      darkMode: kDarkMode,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       borderRadius: BorderRadius.circular(40),
       child: SizedBox(
@@ -258,27 +235,17 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Icon(
             Icons.wb_sunny,
-            color: darkMode ? Colors.grey : Colors.redAccent,
+            color: kDarkMode ? Colors.grey : Colors.redAccent,
           ),
           Icon(
             Icons.nightlight_round,
-            color: darkMode ? Colors.green : Colors.grey,
+            color: kDarkMode ? Colors.green : Colors.grey,
           ),
         ]),
       ),
     );
   }
 
-  void calculate() {
-    String finalQuestion = userQuestion;
-    finalQuestion = finalQuestion.replaceAll('X', '*');
 
-    Parser p = Parser();
-    Expression exp = p.parse(finalQuestion);
-    ContextModel cm = ContextModel();
-    double eval = exp.evaluate(EvaluationType.REAL, cm);
-
-    userAnswer = eval.toString();
-  }
 }
 

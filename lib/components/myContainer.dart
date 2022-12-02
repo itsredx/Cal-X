@@ -39,7 +39,7 @@ class MyContainerState extends State<MyContainer> {
       child: Container(
         padding: widget.padding,
         decoration: BoxDecoration(
-            color: darkMode ? colorDark : colorLight,
+            color: darkMode ? kDarkThemeColor : kLightThemeColor,
             borderRadius: widget.borderRadius,
             boxShadow: _isPressed
                 ? null
