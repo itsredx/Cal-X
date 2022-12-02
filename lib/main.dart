@@ -43,9 +43,11 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        setState(() {
-                          kDarkMode ? kDarkMode = false : kDarkMode = true;
-                        });
+                        setState(
+                          () {
+                            kDarkMode ? kDarkMode = false : kDarkMode = true;
+                          },
+                        );
                       },
                       child: _switchThemeMode()),
                   const SizedBox(height: 70),
@@ -82,79 +84,81 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
                 ],
               ),
               Expanded(
-                child: Column(children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      roundEdgeButton(
-                          title: 'C',
-                          textColor:
-                              kDarkMode ? Colors.green : Colors.redAccent),
-                      roundEdgeButton(title: '('),
-                      roundEdgeButton(title: ')'),
-                      roundEdgeButton(
-                          title: '/',
-                          textColor:
-                              kDarkMode ? Colors.green : Colors.redAccent)
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      roundEdgeButton(title: '7'),
-                      roundEdgeButton(title: '8'),
-                      roundEdgeButton(title: '9'),
-                      roundEdgeButton(
-                          title: '*',
-                          textColor:
-                              kDarkMode ? Colors.green : Colors.redAccent)
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      roundEdgeButton(title: '4'),
-                      roundEdgeButton(title: '5'),
-                      roundEdgeButton(title: '6'),
-                      roundEdgeButton(
-                          title: '-',
-                          textColor:
-                              kDarkMode ? Colors.green : Colors.redAccent)
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      roundEdgeButton(title: '1'),
-                      roundEdgeButton(title: '2'),
-                      roundEdgeButton(title: '3'),
-                      roundEdgeButton(
-                          title: '+',
-                          textColor:
-                              kDarkMode ? Colors.green : Colors.redAccent)
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      roundEdgeButton(title: '0'),
-                      roundEdgeButton(title: '.'),
-                      roundEdgeButton(
-                          icon: Icons.backspace_outlined,
-                          iconColor:
-                              kDarkMode ? Colors.green : Colors.redAccent),
-                      GestureDetector(
-                        onTap: () {
-                          calculate();
-                        },
-                        child: roundEdgeButton(
-                            title: '=',
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        roundEdgeButton(
+                            title: 'C',
                             textColor:
                                 kDarkMode ? Colors.green : Colors.redAccent),
-                      )
-                    ],
-                  )
-                ]),
+                        roundEdgeButton(title: '('),
+                        roundEdgeButton(title: ')'),
+                        roundEdgeButton(
+                            title: '/',
+                            textColor:
+                                kDarkMode ? Colors.green : Colors.redAccent)
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        roundEdgeButton(title: '7'),
+                        roundEdgeButton(title: '8'),
+                        roundEdgeButton(title: '9'),
+                        roundEdgeButton(
+                            title: '*',
+                            textColor:
+                                kDarkMode ? Colors.green : Colors.redAccent)
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        roundEdgeButton(title: '4'),
+                        roundEdgeButton(title: '5'),
+                        roundEdgeButton(title: '6'),
+                        roundEdgeButton(
+                            title: '-',
+                            textColor:
+                                kDarkMode ? Colors.green : Colors.redAccent)
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        roundEdgeButton(title: '1'),
+                        roundEdgeButton(title: '2'),
+                        roundEdgeButton(title: '3'),
+                        roundEdgeButton(
+                            title: '+',
+                            textColor:
+                                kDarkMode ? Colors.green : Colors.redAccent)
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        roundEdgeButton(title: '0'),
+                        roundEdgeButton(title: '.'),
+                        roundEdgeButton(
+                            icon: Icons.backspace_outlined,
+                            iconColor:
+                                kDarkMode ? Colors.green : Colors.redAccent),
+                        GestureDetector(
+                          onTap: () {
+                            calculate();
+                          },
+                          child: roundEdgeButton(
+                              title: '=',
+                              textColor:
+                                  kDarkMode ? Colors.green : Colors.redAccent),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -165,7 +169,7 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
 
   Widget roundEdgeButton(
       {String? title,
-      double padding = 17,
+      double padding = 16,
       IconData? icon,
       Color? iconColor,
       Color? textColor}) {
@@ -174,23 +178,31 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
       child: GestureDetector(
         onTap: () {
           if (title == 'C') {
-            setState(() {
-              kUserQuestion = '';
-              kUserAnswer = '';
-            });
+            setState(
+              () {
+                kUserQuestion = '';
+                kUserAnswer = '';
+              },
+            );
           } else if (icon == Icons.backspace_outlined) {
-            setState(() {
-              kUserQuestion =
-                  kUserQuestion.substring(0, kUserQuestion.length - 1);
-            });
+            setState(
+              () {
+                kUserQuestion =
+                    kUserQuestion.substring(0, kUserQuestion.length - 1);
+              },
+            );
           } else if (title == '=') {
-            setState(() {
-              calculate();
-            });
+            setState(
+              () {
+                calculate();
+              },
+            );
           } else {
-            setState(() {
-              kUserQuestion += title!;
-            });
+            setState(
+              () {
+                kUserQuestion += title!;
+              },
+            );
           }
         },
         child: MyContainer(
@@ -201,19 +213,21 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
             width: padding * 2,
             height: padding * 2,
             child: Center(
-                child: title != null
-                    ? Text(
-                        title,
-                        style: TextStyle(
-                            color: textColor ??
-                                (kDarkMode ? Colors.white : Colors.black),
-                            fontSize: 30),
-                      )
-                    : Icon(
-                        icon,
-                        color: iconColor,
-                        size: 30,
-                      )),
+              child: title != null
+                  ? Text(
+                      title,
+                      style: TextStyle(
+                        color: textColor ??
+                            (kDarkMode ? Colors.white : Colors.black),
+                        fontSize: 30,
+                      ),
+                    )
+                  : Icon(
+                      icon,
+                      color: iconColor,
+                      size: 30,
+                    ),
+            ),
           ),
         ),
       ),
@@ -227,17 +241,19 @@ class MyCalculatorAppState extends State<MyCalculatorApp> {
       borderRadius: BorderRadius.circular(40),
       child: SizedBox(
         width: 70,
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Icon(
-            Icons.wb_sunny,
-            color: kDarkMode ? Colors.grey : Colors.redAccent,
-          ),
-          Icon(
-            Icons.nightlight_round,
-            color: kDarkMode ? Colors.green : Colors.grey,
-          ),
-        ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(
+              Icons.wb_sunny,
+              color: kDarkMode ? Colors.grey : Colors.redAccent,
+            ),
+            Icon(
+              Icons.nightlight_round,
+              color: kDarkMode ? Colors.green : Colors.grey,
+            ),
+          ],
+        ),
       ),
     );
   }
