@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'mycontainer.dart';
-import 'package:cal_x/constants.dart';
+import 'package:calx/constants.dart';
 
 
 Widget ovalButton({required String title, double padding = 17}) {
